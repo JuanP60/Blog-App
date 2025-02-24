@@ -27,19 +27,25 @@ function Login(){
             const isAuth = response.data; // respuesta del server
             //console.log(isAuth);
 
-            if (isAuth.success) { // se pasa como texto plano desde res.send se debe evaluar con comparador
+            if (isAuth.success) { 
                 navigate("/blogs"); // redireccionamos el user a la screen blogs
                 localStorage.setItem("isAuth", "true"); // para restringir la ruta
                 setError("");
             } else {
                 console.log(isAuth);
-                setError("User not found! Please Login");
+                setError("Verifica tus credenciales o crea una cuenta");
                 localStorage.clear(); // borramos el estado de isAuth.
             }
 
         } catch (error) {
             console.log(error);
         }
+    }
+
+    function crearCuenta(event){
+        event.preventDefault();
+
+        navigate("/register"); // enviamos al cliente a la pantalla de crear cuenta
     }
 
     return (
@@ -49,6 +55,7 @@ function Login(){
             <input onChange={(event) => setPass(event.target.value)} type="password" name="password" placeholder="password" />
             <button onClick={reqLogin} type="submit">Inciar sesión</button>
             <p>{error}</p>
+            <button onClick={crearCuenta} type="submit">Crear una cuenta</button>
         </form>
     )
 }

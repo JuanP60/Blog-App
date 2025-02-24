@@ -1,5 +1,6 @@
 import React from "react";
 import Login from "./Login";
+import Register from "./Register";
 import Blogs from "./Blogs";
 import Restricted from "./RestrictedRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -9,6 +10,7 @@ function App(){
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login />} />
+                <Route path="/register" element={<Register />}/>
                 <Route element={<Restricted />}>
                     <Route path="/blogs" element={<Blogs />} />
                 </Route>

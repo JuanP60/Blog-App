@@ -5,17 +5,13 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";
+import bcrypt from "bcrypt"; // libreria para hashing de contraseñas
 
 // creamos nuestra app con express:
 
 const app = express();
 const port = 4000;
-
-// puerto escuchando:
-
-app.listen(port, () =>{
-    console.log(`Server running on port ${port}`);
-});
+const saltRounds = 5; // salting rounds for passwords
 
 dotenv.config(); // se añade para trabajar con las variables de entorno
 
@@ -49,12 +45,27 @@ app.post("/api/login", async (req, res) =>{
 
     try {
         // verificamos en la db si existe el user.
-        const result = await db.query("SELECT * FROM users WHERE correo = $1 AND password = $2", [email , pass]);
+        const result = await db.query("SELECT * FROM users WHERE correo = $1", [email]);
 
         if (result.rows.length > 0){ // si hay mas de 1 row devuelta
-            res.json({success: true});
+            const user = result.rows[0]; // accedemos al array donde la query nos esta dando, user_id, correo, password
+            const storedHashedPassword = user.password; // aca accedemos a la password guardada en el registro la cual fue hasheada
+
+            // metodo de la libreria bcrypt para comprar contraseñas:
+
+            bcrypt.compare(pass, storedHashedPassword, (err, result) =>{ // recibe: password nueva, password ya hasheada, (hace la comparacion), callback(error, resultado)
+                if (err){
+                    console.log("Error comparing passwords:", err);
+                } else {
+                    if (result){ // parametro de la arrow function, si result es true luego de la comparativa, enviamos respuesta al frontend
+                        res.json({success: true, message: "Bienvenido!"});
+                    } else {
+                        res.send("Incorrect password");
+                    }
+                }
+            });
             //console.log("user found");
-        } else {
+        } else { // si no salieron rows de la consulta quiere decir que el user no se ha registrado
             res.json({success: false});
             console.log("user not found");
         }
@@ -62,9 +73,38 @@ app.post("/api/login", async (req, res) =>{
         console.log(error);
     }
 
-    //ToDo: hacer Hashing de password
+    //ToDo: hacer Hashing de password - check
     //console.log(email + " y la contrasela es: " + pass);
 });
 
+app.post("/api/register", async (req, res) =>{
 
+    const {newUserEmail, newUserPass} = req.body; // aca obtenemos datos que vienen desde el front, ahora vamos a hashear la contraseña para guardarla los datos en la db
+    //console.log("correo a registrar: " + newUserEmail + " con la pass: " + newUserPass);
+
+    try {
+        const query = await db.query("SELECT * FROM users WHERE correo = $1", [newUserEmail]); // antes del registro verificamos si ya habia un perfil creado con ese correo
+
+        if (query.rows.length > 0){
+            res.send("El correo ya esta registrado, incie sesión");
+        } else {
+            bcrypt.hash(newUserPass, saltRounds, async (err, hash) =>{
+                if (err){
+                    console.log("Error hashing password:", err);
+                } else {
+                    const result = await db.query("INSERT INTO users (correo, password) VALUES ($1, $2)", [newUserEmail, hash]);
+                    res.json({success: true}); // enviamos confirmacion al front de que el user ha sido registrado
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+// puerto escuchando:
+
+app.listen(port, () =>{
+    console.log(`Server running on port ${port}`);
+});
 
