@@ -102,6 +102,44 @@ app.post("/api/register", async (req, res) =>{
     }
 });
 
+app.get("/api/blogs", async (req, res) =>{
+    // solicitud a la db para mostrar todos los blogs:
+
+    try {
+        const query = await db.query("SELECT title FROM blogs");
+        const result = query.rows; // en query.rows esta las filas devueltas de la consulta
+
+        if (result.length > 0){ // si hay mas de 0 consultas devueltas
+            res.json({blogs: result});
+        } else {
+            res.send("Error en la consulta");
+        }
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+app.post("/api/crearBlog", async (req, res) =>{
+    // estamos pasando por params los datos del front entonces:
+
+    const {blogT, blogContent, createdBy} = req.body;  
+
+    try {
+        // insertamos datos a la base:
+        const query = await db.query("INSERT INTO blogs (blog, created_by, title) VALUES ($1, $2, $3) RETURNING * ", [blogContent, null, blogT]);
+        const result = query.rows;
+        // returning me ddevuelve la misma fila que acabe de insertar.
+        if (result.length > 0){
+            res.json({success: true});
+        } else {
+            res.json({success: false});
+        }
+
+    } catch (error) {   
+        console.log(error);
+    }
+});
+
 // puerto escuchando:
 
 app.listen(port, () =>{
