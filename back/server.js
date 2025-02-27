@@ -109,7 +109,7 @@ app.get("/api/blogs", async (req, res) =>{
         const query = await db.query("SELECT title FROM blogs");
         const result = query.rows; // en query.rows esta las filas devueltas de la consulta
 
-        if (result.length > 0){ // si hay mas de 0 consultas devueltas
+        if (result.length >= 0){ // si hay mas de 0 consultas devueltas
             res.json({blogs: result});
         } else {
             res.send("Error en la consulta");
@@ -128,14 +128,34 @@ app.post("/api/crearBlog", async (req, res) =>{
         // insertamos datos a la base:
         const query = await db.query("INSERT INTO blogs (blog, created_by, title) VALUES ($1, $2, $3) RETURNING * ", [blogContent, null, blogT]);
         const result = query.rows;
+        console.log(result[0]);
+
         // returning me ddevuelve la misma fila que acabe de insertar.
         if (result.length > 0){
-            res.json({success: true});
+            res.json({newBlog: result[0]});
         } else {
             res.json({success: false});
         }
 
     } catch (error) {   
+        console.log(error);
+    }
+});
+
+app.get("/api/getBlog/:id", async (req, res) =>{
+
+    const {id} = req.params; // accediendo a los parametros enviados desde el front en la URL
+
+    try {
+        const query = await db.query("SELECT * FROM blogs WHERE blog_id = $1", [id]);
+        const result = query.rows;
+
+        if (result.length > 0){
+            res.json(query.rows[0]); // enviamos los datos devuelta al front
+        } else {
+            res.status(404).json({message: "Blog no encontrado"});
+        }
+    } catch (error) {
         console.log(error);
     }
 });
