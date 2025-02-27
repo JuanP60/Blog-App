@@ -37,11 +37,13 @@ function Blogs(){
         <div>
             <h1>My blogs</h1>
             <ul>
-                {blogs.map((t, index) =>{ 
-                    return <li key={index}>{t.title}</li>
-                    // map maneja primer variable la que va a recorrer el array, segunda el index que corresponde al elemento que se esta iterando,
-                    // en react cada elemento debe tener su propia key para diferenciarlos
-                })}
+                {blogs.length > 0 ? ( // con ( ) la arrow devuelve automaticamente el valor sin necesidadd de usar return
+                    blogs.map((t, index) =>(
+                        <li key={index}>{t.title}</li>
+                    )) 
+                ): (
+                    <li>No hay blogs disponibles</li>
+                )}
             </ul>
             <button onClick={creaTuBlogPage}>Crea tu blog</button>
             <button onClick={cerrarSesion}>Cerrar Sesión</button>

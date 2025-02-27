@@ -3,6 +3,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Blogs from "./Blogs";
 import CrearBlog from "./CrearBlog";
+import Myblog from "./Myblog";
 import Restricted from "./RestrictedRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -16,6 +17,7 @@ function App(){
                     <Route path="/blogs" element={<Blogs />} />
                 </Route>
                 <Route path="/crearBlog" element={<CrearBlog />} />
+                <Route path="/myBlog/:id" element={<Myblog />}/>
             </Routes>
         </BrowserRouter>
     );
