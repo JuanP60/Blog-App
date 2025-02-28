@@ -4,6 +4,7 @@ import Register from "./Register";
 import Blogs from "./Blogs";
 import CrearBlog from "./CrearBlog";
 import Myblog from "./Myblog";
+import BlogContent from "./BlogContent";
 import Restricted from "./RestrictedRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -15,6 +16,7 @@ function App(){
                 <Route path="/register" element={<Register />}/>
                 <Route element={<Restricted />}>
                     <Route path="/blogs" element={<Blogs />} />
+                    <Route path="/blogContent/:id" element={<BlogContent />}/>
                 </Route>
                 <Route path="/crearBlog" element={<CrearBlog />} />
                 <Route path="/myBlog/:id" element={<Myblog />}/>

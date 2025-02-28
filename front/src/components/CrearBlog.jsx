@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate} from "react-router-dom";
+import NavBar from "./NavBar";
 
 function CrearBlog(){
 
@@ -11,6 +12,7 @@ function CrearBlog(){
     const navigate = useNavigate();
    
     async function crearBlog(e){
+        
         e.preventDefault();
 
         try {
@@ -37,6 +39,7 @@ function CrearBlog(){
 
     return (
         <div>
+            <NavBar />
             <h1>Crear tu blog personalizado con tus historias!</h1>
             <form>
                 <textarea name="title" id="" placeholder="Titulo" onChange={e => setTitle(e.target.value)}></textarea>

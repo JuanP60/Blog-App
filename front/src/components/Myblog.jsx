@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 function Myblog(){
 
@@ -23,9 +25,10 @@ function Myblog(){
 
     return (
         <div>
+            <NavBar />
             <h1>MyBlog!</h1>
-            <h1>{blog.title}</h1> <br />
-            <p>{blog.blog}</p>
+            <h1>{blog.title}</h1>
+            <Footer />
         </div>
     );
 }

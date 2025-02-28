@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 function Blogs(){
 
@@ -22,7 +24,6 @@ function Blogs(){
         } catch (error) {
             console.log(error);
         }
-
     }
 
     function creaTuBlogPage(){
@@ -35,11 +36,12 @@ function Blogs(){
 
     return (
         <div>
+            <NavBar />
             <h1>My blogs</h1>
             <ul>
                 {blogs.length > 0 ? ( // con ( ) la arrow devuelve automaticamente el valor sin necesidadd de usar return
                     blogs.map((t, index) =>(
-                        <li key={index}>{t.title}</li>
+                        <Link key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li></Link>
                     )) 
                 ): (
                     <li>No hay blogs disponibles</li>
@@ -47,6 +49,7 @@ function Blogs(){
             </ul>
             <button onClick={creaTuBlogPage}>Crea tu blog</button>
             <button onClick={cerrarSesion}>Cerrar Sesión</button>
+            <Footer />
         </div>
     );
 }

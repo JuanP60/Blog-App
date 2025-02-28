@@ -106,7 +106,7 @@ app.get("/api/blogs", async (req, res) =>{
     // solicitud a la db para mostrar todos los blogs:
 
     try {
-        const query = await db.query("SELECT title FROM blogs");
+        const query = await db.query("SELECT * FROM blogs");
         const result = query.rows; // en query.rows esta las filas devueltas de la consulta
 
         if (result.length >= 0){ // si hay mas de 0 consultas devueltas
@@ -152,6 +152,24 @@ app.get("/api/getBlog/:id", async (req, res) =>{
 
         if (result.length > 0){
             res.json(query.rows[0]); // enviamos los datos devuelta al front
+        } else {
+            res.status(404).json({message: "Blog no encontrado"});
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+app.get("/api/getBlogContent/:id", async (req, res) =>{
+
+    const {id} = req.params; // accediendo al id pasado desde del front
+
+    try {
+        const query = await db.query("SELECT * FROM blogs WHERE blog_id = $1", [id]);
+        const result = query.rows;
+
+        if (result.length > 0){
+            res.json(result[0]);
         } else {
             res.status(404).json({message: "Blog no encontrado"});
         }
