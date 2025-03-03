@@ -8,18 +8,20 @@ import BlogContent from "./BlogContent";
 import Restricted from "./RestrictedRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// lo que esta en future solo se puso para que no salieran los warnings en el navegador sobre las futuras versiones de react-router
+// permite adelantar en mi app cambios que puedan venir en la version 7
 function App(){
     return(
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />}/>
                 <Route element={<Restricted />}>
                     <Route path="/blogs" element={<Blogs />} />
                     <Route path="/blogContent/:id" element={<BlogContent />}/>
+                    <Route path="/crearBlog" element={<CrearBlog />} />
+                    <Route path="/myBlogs" element={<Myblog />}/>
                 </Route>
-                <Route path="/crearBlog" element={<CrearBlog />} />
-                <Route path="/myBlog/:id" element={<Myblog />}/>
             </Routes>
         </BrowserRouter>
     );

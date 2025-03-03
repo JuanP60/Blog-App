@@ -29,8 +29,8 @@ function Register(){
                 const isRegistered = response.data; // respuesta del server.
 
                 if (isRegistered.success){
-                    navigate("/blogs");
-                    localStorage.setItem("isAuth", "true"); // para restringir la ruta
+                    navigate("/"); // para que inicie sesion
+                    //localStorage.setItem("isAuth", "true"); // para restringir la ruta
                 } else {
                     console.log("Error registrando el user");
                 }

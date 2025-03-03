@@ -15,19 +15,26 @@ function CrearBlog(){
         
         e.preventDefault();
 
+        const auth = JSON.parse(localStorage.getItem("auth")); // objeto guardado en localstorage con token
+
         try {
-            const response = await axios.post("http://localhost:4000/api/crearBlog", { // con GET se envian los datos al back como parametros.
+            const response = await axios.post("http://localhost:4000/api/crearBlog",
+            { // cuerpo de mi solicitud http:
                 blogT: title,
-                blogContent: content,
-                createdBy: author
-            });
+                blogContent: content
+            },
+            { // aca enviamos los headers, generalmente va el token del user
+                headers: { Authorization: `Bearer ${auth.token}` } 
+            }
+        ); // con GET se envian los datos al back como parametros.
+
 
             const result = response.data.newBlog;
             console.log(result)
         
             if (result) {
                 setBlog("Blog creado!");
-                navigate(`/myBlog/${result.blog_id}`); // redirigimos al blog creado, desde ese componente hacemos solicitud al back para mostrar los datos.
+                navigate("/myBlogs"); // mostramos todos los blogs que ha creado el usuario logueado
             } else {
                 setBlog("Error creando el blog :(");
             }

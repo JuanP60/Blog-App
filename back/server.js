@@ -6,6 +6,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";
 import bcrypt from "bcrypt"; // libreria para hashing de contraseñas
+import jwt from "jsonwebtoken"; // lib para manejo de tokens
+import path from "path"; // para la ruta de los archivos publicos
+import { fileURLToPath } from "url";
 
 // creamos nuestra app con express:
 
@@ -13,7 +16,12 @@ const app = express();
 const port = 4000;
 const saltRounds = 5; // salting rounds for passwords
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 dotenv.config(); // se añade para trabajar con las variables de entorno
+
+const SECRET_KEY = process.env.SECRET_KEY;
 
 // conexion a base de datos usamos .env para no mostrar las credenciales e informacion importante en el deploy:
 
@@ -29,14 +37,9 @@ db.connect(); // conectamos a la base de datos
 app.use(cors()); // todos los puertos abiertos para comunicacion front con back y viceversa.
 
 // Middlewares
+app.use(express.static(path.join(__dirname, "front", "public"))); // para usar archivos publicos
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // Necesario para recibir JSON en el body, para leer lo que envia el front con axios
-
-//app.use(express.static("public")); // para leer estilos y html
-
-// solicitudes http realizadas con axios desde el front:
-
-// verificando credenciales en la db:
 
 app.post("/api/login", async (req, res) =>{
 
@@ -58,7 +61,14 @@ app.post("/api/login", async (req, res) =>{
                     console.log("Error comparing passwords:", err);
                 } else {
                     if (result){ // parametro de la arrow function, si result es true luego de la comparativa, enviamos respuesta al frontend
-                        res.json({success: true, message: "Bienvenido!"});
+
+                        // usando JWT para manejo de tokens:
+
+                        const token = jwt.sign({email}, SECRET_KEY, {expiresIn: "1h"});
+
+                        // confirmacion al front de que el user ha sido logueado:
+
+                        res.json({token, success: true, message: "Bienvenido!"});
                     } else {
                         res.send("Incorrect password");
                     }
@@ -70,7 +80,8 @@ app.post("/api/login", async (req, res) =>{
             console.log("user not found");
         }
     } catch (error) {
-        console.log(error);
+        return res.status(500).json({ success: false, message: "Error interno del servidor" });
+        //console.log(error);
     }
 
     //ToDo: hacer Hashing de password - check
@@ -86,7 +97,7 @@ app.post("/api/register", async (req, res) =>{
         const query = await db.query("SELECT * FROM users WHERE correo = $1", [newUserEmail]); // antes del registro verificamos si ya habia un perfil creado con ese correo
 
         if (query.rows.length > 0){
-            res.send("El correo ya esta registrado, incie sesión");
+            res.send("El correo ya esta registrado, inicie sesión");
         } else {
             bcrypt.hash(newUserPass, saltRounds, async (err, hash) =>{
                 if (err){
@@ -122,11 +133,22 @@ app.get("/api/blogs", async (req, res) =>{
 app.post("/api/crearBlog", async (req, res) =>{
     // estamos pasando por params los datos del front entonces:
 
-    const {blogT, blogContent, createdBy} = req.body;  
+    const {blogT, blogContent} = req.body;  
 
+    // console.log(req.header.authorization);
+
+    // express pasa el nombre de los headers a miniscula, por esa razon puedo evaluar authorization
+    const authHeader = req.headers.authorization; // accediendo al token
+    const token = authHeader.split(" ")[1]; // Extraemos solo el token
+    const decoded = jwt.verify(token, SECRET_KEY); // Verificamos
+    const email = decoded.email; // Extraemos el email del usuario
+    // console.log(token); // check
+    // console.log(email); // check
+    
+    // toDo: añadir programacion defensiva para el uso del token
     try {
         // insertamos datos a la base:
-        const query = await db.query("INSERT INTO blogs (blog, created_by, title) VALUES ($1, $2, $3) RETURNING * ", [blogContent, null, blogT]);
+        const query = await db.query("INSERT INTO blogs (blog, created_by, title) VALUES ($1, $2, $3) RETURNING * ", [blogContent, email, blogT]);
         const result = query.rows;
         console.log(result[0]);
 
@@ -142,16 +164,21 @@ app.post("/api/crearBlog", async (req, res) =>{
     }
 });
 
-app.get("/api/getBlog/:id", async (req, res) =>{
+app.get("/api/getMyBlogs", async (req, res) =>{
 
-    const {id} = req.params; // accediendo a los parametros enviados desde el front en la URL
+    const authHeader = req.headers.authorization; // accediendo al token
+    const token = authHeader.split(" ")[1]; // Extraemos solo el token
+    const decoded = jwt.verify(token, SECRET_KEY); // Verificamos
+    const email = decoded.email; // Extraemos el email del usuario
+
+    // añadir programacion defensiva para manejo de tokes
 
     try {
-        const query = await db.query("SELECT * FROM blogs WHERE blog_id = $1", [id]);
+        const query = await db.query("SELECT * FROM blogs WHERE created_by = $1", [email]);
         const result = query.rows;
 
         if (result.length > 0){
-            res.json(query.rows[0]); // enviamos los datos devuelta al front
+            res.json({blogs: result}); // enviamos los datos devuelta al front
         } else {
             res.status(404).json({message: "Blog no encontrado"});
         }

@@ -24,12 +24,15 @@ function Login(){
             });
             // si uso .get necesito params, con post se no es necesario ya que se usa con req.body
 
-            const isAuth = response.data; // respuesta del server
-            //console.log(isAuth);
+            const isAuth = {
+                isAuth: response.data.success,
+                token: response.data.token
+            }; // respuesta del server
+           
 
-            if (isAuth.success) { 
+            if (isAuth.isAuth) { 
                 navigate("/blogs"); // redireccionamos el user a la screen blogs
-                localStorage.setItem("isAuth", "true"); // para restringir la ruta
+                localStorage.setItem("auth", JSON.stringify(isAuth)); // para restringir la ruta, guardamos token enviado desde el back
                 setError("");
             } else {
                 console.log(isAuth);

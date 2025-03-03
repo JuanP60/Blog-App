@@ -5,7 +5,7 @@ function NavBar(){
     return (
         <ul>
             <li><Link to="/blogs">Blogs comunidad</Link></li>
-            <li><Link to="">Mis blogs</Link></li>
+            <li><Link to="/myBlogs">Mis blogs</Link></li>
             <li><Link>Soporte</Link></li>
         </ul>
     );
