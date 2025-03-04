@@ -64,7 +64,7 @@ app.post("/api/login", async (req, res) =>{
 
                         // usando JWT para manejo de tokens:
 
-                        const token = jwt.sign({email}, SECRET_KEY, {expiresIn: "1h"});
+                        const token = jwt.sign({email}, SECRET_KEY, {expiresIn: "10h"});
 
                         // confirmacion al front de que el user ha sido logueado:
 
@@ -202,6 +202,32 @@ app.get("/api/getBlogContent/:id", async (req, res) =>{
         }
     } catch (error) {
         console.log(error);
+    }
+});
+
+app.post("/api/updateBlog/:id", async (req, res) => {
+
+    const {id} = req.params; // accediendo al id pasado desde del front
+    const {title, blog} = req.body; // accediendo a los datos pasados en el cuerpo de la solicitud
+
+    // para el token:
+
+    const authHeader = req.headers.authorization; // accediendo al token
+    const token = authHeader.split(" ")[1]; // Extraemos solo el token
+    const decoded = jwt.verify(token, SECRET_KEY); // Verificamos
+    const email = decoded.email; // Extraemos el email del usuario
+
+    try {
+        const query = await db.query("UPDATE blogs SET title = $1, blog = $2 WHERE blog_id = $3 AND created_by = $4 RETURNING *", [title, blog, id, email]);
+        const result = query.rows;
+
+        if (result.length > 0){
+            res.json({success: true, message: "Blog actualizado!"});
+        } else {
+            res.json({success: false, message: "Usuario actual no es dueñ@ del blog"});
+        }
+    } catch (error) {
+        console.log(error); // ToDO: mejorar manejo de errores.
     }
 });
 
