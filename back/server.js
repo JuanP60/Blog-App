@@ -231,6 +231,31 @@ app.post("/api/updateBlog/:id", async (req, res) => {
     }
 });
 
+app.post("/api/eliminarBlog/:id", async (req, res) =>{
+
+    const {id} = req.params; // accediendo al id del blog que se quiere eliminar
+
+        // para el token:
+
+    const authHeader = req.headers.authorization; // accediendo al token
+    const token = authHeader.split(" ")[1]; // Extraemos solo el token
+    const decoded = jwt.verify(token, SECRET_KEY); // Verificamos
+    const email = decoded.email; // Extraemos el email del usuario
+
+    try {
+        const query = await db.query("DELETE FROM blogs WHERE blog_id = $1 AND created_by = $2 RETURNING *", [id, email]); // si se elimina con exito, se devuele el objeto eliminado
+        const result = query.rows;
+
+        if (result.length > 0){
+            res.json({success: true, message: "Blog eliminado correctamente"});
+        } else {
+            res.json({sucess: false, message: "Error al intentar eliminar el blog o no eres dueño de este blog"});
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 // puerto escuchando:
 
 app.listen(port, () =>{
