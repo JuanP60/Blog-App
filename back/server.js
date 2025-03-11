@@ -97,7 +97,7 @@ app.post("/api/register", async (req, res) =>{
         const query = await db.query("SELECT * FROM users WHERE correo = $1", [newUserEmail]); // antes del registro verificamos si ya habia un perfil creado con ese correo
 
         if (query.rows.length > 0){
-            res.send("El correo ya esta registrado, inicie sesión");
+            res.json({success: false, message: "Correo ya registrado, inicie sesión"});
         } else {
             bcrypt.hash(newUserPass, saltRounds, async (err, hash) =>{
                 if (err){

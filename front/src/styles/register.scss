@@ -1,0 +1,64 @@
+// variables
+
+$base-yellow: #FFC72C;
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    gap: 15px;
+    background: white;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 40px;
+
+    .logo-container{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        .register-icon{
+            width: 50px;
+            height: 50px;
+            color: $base-yellow;
+        }
+    }
+
+    .register-header{
+        font-weight: 300;
+    }
+
+    .input-register{
+        border: none;
+        border-bottom: 1px solid $base-yellow; 
+        outline: none; 
+        padding: 5px;
+        font-size: 15px;
+        color: black;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .input-register:focus{
+        border-bottom: 1px solid #000; // cambiando el color al enfocar
+    }
+
+    .btn-register{
+        margin-top: 15px;
+        cursor: pointer;
+        background: $base-yellow; 
+        border: none;
+        color: white;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s ease;
+    }
+
+    .btn-register:hover{
+        background: #0056b3; /* Azul más oscuro al pasar el mouse */
+    }
+}
+

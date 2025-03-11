@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap'); // roboto 300
+
+// variables
+
+$base-yellow: #FFC72C;
+
+html{
+    background-color: #ffffff;
+    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+    font-family: "Roboto", sans-serif;
+}
+
+// ************ ESTILOS NAVBAR ************
+
+.nav-container{
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 1vh; // espacio desde arriba basado en la altura de la pantalla
+    left: 5vw; // espacio desde la izq basado en el ancho de la pantalla
+    font-size: 1rem; // tamaño dde fuente escalable
+
+    h1{
+        font-weight: 500;
+        color: #222222;
+    }
+
+    .pencil-icon{
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        margin-left: 0.8vh;
+        top: 3.5vh;
+        color: $base-yellow;
+    }
+}
+
+.father-container{
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    flex-direction: column;
+    height: 100vh; /* Ocupa toda la pantalla */
+}
+
+// ************ ESTILOS FORM - MIDCONTAINER ************
+
+.mid-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 75vh;
+    height: 55vh;
+    background: white;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+    .login-form{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        margin-top: -4vh; // moviendo form un poco arriba
+    
+        .logo-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            .login-icon{
+                margin-top: 2vh;
+                height: 50px;
+                width: 50px;
+                color: $base-yellow;
+            }
+        }
+    
+        .login-header{
+            font-weight: 100;
+        }
+
+        .input-login{
+            border: none;
+            border-bottom: 1px solid $base-yellow; 
+            outline: none; 
+            padding: 5px;
+            font-size: 15px;
+            color: black;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .input-login:focus{
+            border-bottom: 1px solid #000; // cambiando el color al enfocar
+        }
+
+        .btn-login1{
+            margin-top: 2vh;
+            cursor: pointer;
+            background: $base-yellow; 
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        .btn-login1:hover{
+            background: #0056b3; /* Azul más oscuro al pasar el mouse */
+        }
+
+        .btn-login2{
+            margin-top: 1vh;
+            @extend .btn-login1;
+        }
+    }
+
+    .div-container{
+        position: absolute;
+        width: 0.1px;
+        height: 45vh;
+        background: #3A3A3A;
+        margin-left: 115px;
+    }
+
+    ul li{
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .check-login{
+        color: $base-yellow; // amarillo suave
+    }
+
+}
+
+// ************ ESTILOS FOOTER ************
+
+.foot-container{
+    position: absolute;
+    bottom: 1vh;
+}
+
+// responsive:
+
+// celurares pequeños:
+@media screen and (max-width: 480px){ 
+    .mid-container {
+        width: 90%;  
+        max-width: 400px; 
+        height: auto; 
+        padding: 15px;
+        margin-top: 180px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .login-form {
+        width: 90%;  /* Asegura que ocupe todo el ancho del mid-container */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .input-login {
+        width: 100%; /* O puedes probar con 90% para que no quede pegado a los bordes */
+        max-width: 350px;
+      }
+    
+      button {
+        width: 100%;  /* Ajusta botones al contenedor */
+        max-width: 300px; /* Evita que sean demasiado anchos */
+      }
+
+      ul {
+        padding: 0;
+    }
+
+    .div-container{
+        display: none;
+    }
+
+    .foot-container{
+        position: relative; // respecto al container padre
+        bottom: 0;
+    }
+}
+
+// falta responsive para tablets: 768px, escritorios: 1024px
