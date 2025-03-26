@@ -1,0 +1,90 @@
+// variables
+
+$base-yellow: #FFC72C;
+
+
+.nav-container{
+    display: flex;
+    justify-content: space-between; /* Distribuye elementos a los extremos */
+    align-items: center; /* Centra verticalmente */
+    height: 10%;
+    width: 100%;
+    top: 2%;
+    left: 0;
+
+    .icon-container{
+        display: flex;
+        justify-items: center;
+        margin-left: 100px;
+        cursor: pointer;
+
+        .pencil-iconnav{
+            color: $base-yellow;
+            height: 40px;
+            width: 40px;
+        }
+    }
+    
+    .items-container{
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        list-style: none;
+        outline: none;
+        font-size: 1.5rem;
+        color: black;
+        white-space: nowrap;
+
+        a{
+            position: relative;
+            color: black; // cambiamos color de los links
+            text-decoration: none;
+
+             // Línea animada debajo del enlace
+             &::after {
+                content: ""; // Esto es obligatorio para que exista
+                position: absolute;
+                left: 0;
+                bottom: -3px; // Ajusta la posición debajo del texto
+                width: 0%; // Comienza sin ancho
+                height: 2px; // Grosor de la línea
+                background-color: $base-yellow;
+                transition: width 0.3s ease-in-out; // Suaviza la animación
+            }
+
+            &:hover::after {
+                width: 100%; // Expande de izquierda a derecha al hacer hover
+            }
+        }
+    }
+
+    li{
+        margin-right: 50px; 
+    }
+
+    .sign-container{
+        margin-right: 100px;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+
+        .sign-logo{
+            height: 50px;
+            width: 50px;
+            color: $base-yellow;
+        }
+    }
+
+}
+
+.items-container li a, 
+.items-container li a:focus, 
+.items-container li a:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-decoration: none; 
+}
+
+
+// arreglar navbr

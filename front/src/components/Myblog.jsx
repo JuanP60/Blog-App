@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import BookIcon from '@mui/icons-material/Book';
 
 function Myblog(){
 
@@ -30,17 +31,28 @@ function Myblog(){
     return (
         <div>
             <NavBar />
-            <h1>My Blogs!</h1>
-            <ul>
-                {blogs.length > 0 ? (
-                    blogs.map((t, index) => (
-                        <Link key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li></Link>
-                )) 
-                ) : (
-                    <li>No tienes blogs por el momento</li>
-                )}
-            </ul>
-            <Footer />
+
+            <div className="blogs-father-container">
+
+                <div className="title-container">
+                    <h1>My Blogs!</h1>
+                    <BookIcon className="book-icon" />
+                </div>
+
+                <ul>
+                    {blogs.length > 0 ? (
+                        blogs.map((t, index) => (
+                            <Link key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li></Link>
+                    )) 
+                    ) : (
+                        <li>No tienes blogs por el momento</li>
+                    )}
+                </ul>
+            </div>
+
+            <div className="foot-container-blogs">
+                <Footer />
+            </div>
         </div>
     );
 }

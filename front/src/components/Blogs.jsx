@@ -3,6 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import "../styles/blogs.scss";
+import BookIcon from '@mui/icons-material/Book';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 function Blogs(){
 
@@ -37,19 +40,35 @@ function Blogs(){
     return (
         <div>
             <NavBar />
-            <h1>My blogs</h1>
-            <ul>
-                {blogs.length > 0 ? ( // con ( ) la arrow devuelve automaticamente el valor sin necesidadd de usar return
-                    blogs.map((t, index) =>(
-                        <Link key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li></Link>
-                    )) 
-                ): (
-                    <li>No hay blogs disponibles</li>
-                )}
-            </ul>
-            <button onClick={creaTuBlogPage}>Crea tu blog</button>
-            <button onClick={cerrarSesion}>Cerrar Sesión</button>
-            <Footer />
+
+            <div className="blogs-father-container">
+
+                <div className="title-container">
+                    <h1>Blogs de la comunidad!</h1>
+                    <BookIcon className="book-icon" />
+                </div>
+
+                <div className="blogs-container">
+                    <ul className="items-blogs-container">
+                        {blogs.length > 0 ? ( // con ( ) la arrow devuelve automaticamente el valor sin necesidadd de usar return
+                            blogs.map((t, index) =>(
+                                <Link className="blogs-items-design" key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li>  <VisibilityIcon className="eye-icon"/> </Link>
+                            )) 
+                        ): (
+                            <li>No hay blogs disponibles</li>
+                        )}
+                    </ul>
+
+                    <div className="button-container">
+                        <button onClick={creaTuBlogPage}>Crea tu blog</button>
+                        <button onClick={cerrarSesion}>Cerrar Sesión</button>
+                    </div>
+                </div>
+
+                <div className="foot-container-blogs">
+                    <Footer />
+                </div>
+            </div>
         </div>
     );
 }
