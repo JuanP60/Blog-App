@@ -2,6 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useNavigate} from "react-router-dom";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
+import "../styles/creandoBlog.scss";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 function CrearBlog(){
 
@@ -46,15 +50,30 @@ function CrearBlog(){
 
     return (
         <div>
+
             <NavBar />
-            <h1>Crear tu blog personalizado con tus historias!</h1>
-            <form>
-                <textarea name="title" id="" placeholder="Titulo" onChange={e => setTitle(e.target.value)}></textarea>
-                <textarea name="content" id="" placeholder="Content" onChange={e => setContent(e.target.value)}></textarea>
-                <input type="text" placeholder="Creado por:" onChange={e => setAuthor(e.target.value)}/>
-                <button onClick={crearBlog}>Crear blog</button>
-            </form>
-            <p>{blogCreado}</p>
+
+            <div className="blog-crear-container">
+
+                <div className="title-container-crear">
+                    <h1>Crear tu blog personalizado!</h1>
+                    <AddCircleOutlineIcon className="add-icon" />
+                </div>
+
+                <form onSubmit={crearBlog} className="form-father">
+                    <textarea name="title" id="title" placeholder="Titulo" required onChange={e => setTitle(e.target.value)}></textarea>
+                    <textarea name="content" id="content" placeholder="Contenido" required onChange={e => setContent(e.target.value)}></textarea>
+                    <input type="text" placeholder="Autor" id="autor-input" required onChange={e => setAuthor(e.target.value)}/>
+                    <button type="submit" className="crear-button"> <CheckCircleIcon className="check-icon-crear"/> </button>
+                </form>
+
+                <p>{blogCreado}</p>
+            </div>
+
+            <div className="foot-container-blogs">
+                <Footer />
+            </div>
+
         </div>
     );
 }

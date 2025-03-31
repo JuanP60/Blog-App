@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import BookIcon from '@mui/icons-material/Book';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 function Myblog(){
 
     const [blogs, setBlogs] = React.useState([]); // estado para almacenar info del los blogs
+    const navigate = useNavigate();
 
     async function showBlogs() {
 
@@ -22,6 +24,10 @@ function Myblog(){
         } catch (error) {
             console.log("Error cargando el blog", error);
         }   
+    }
+
+    function creaTuBlogPage(){
+        navigate("/crearBlog");
     }
 
     React.useEffect(() =>{
@@ -39,20 +45,30 @@ function Myblog(){
                     <BookIcon className="book-icon" />
                 </div>
 
-                <ul>
-                    {blogs.length > 0 ? (
-                        blogs.map((t, index) => (
-                            <Link key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li></Link>
-                    )) 
-                    ) : (
-                        <li>No tienes blogs por el momento</li>
-                    )}
-                </ul>
+                <div className="blogs-container">
+                    <ul className="items-blogs-container">
+                        {blogs.length > 0 ? (
+                            blogs.map((t, index) => (
+                                <Link className="blogs-items-design" key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li> <VisibilityIcon className="eye-icon"/> </Link>
+                        )) 
+                        ) : (
+                            <li>No tienes blogs por el momento</li>
+                        )}
+                    </ul>
+
+                    <button  className="blog-button" onClick={creaTuBlogPage}>
+                        <span className="plus-icon">+</span>
+                        <span className="button-text">Crea tu blog</span>
+                    </button>
+
+                </div>
+
             </div>
 
             <div className="foot-container-blogs">
                 <Footer />
             </div>
+
         </div>
     );
 }

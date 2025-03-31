@@ -12,11 +12,6 @@ function Blogs(){
     const navigate = useNavigate(); // hook para redireccionar al user luego de authentication. En realidad debo usar useParams ya que manejo ids de usuarios
     const [blogs, updateBlogs] = React.useState([]);
 
-    function cerrarSesion(){
-        localStorage.clear(); // borramos el estado de isAuth.
-        navigate("/"); 
-    }   
-
     async function llamarBlogs(){
         // hacemos solicitud get con axios para mostrar todos los blogs de todos los usuarios
         try {
@@ -27,10 +22,6 @@ function Blogs(){
         } catch (error) {
             console.log(error);
         }
-    }
-
-    function creaTuBlogPage(){
-        navigate("/crearBlog");
     }
 
     React.useEffect(() => {
@@ -59,16 +50,13 @@ function Blogs(){
                         )}
                     </ul>
 
-                    <div className="button-container">
-                        <button onClick={creaTuBlogPage}>Crea tu blog</button>
-                        <button onClick={cerrarSesion}>Cerrar Sesión</button>
-                    </div>
-                </div>
-
-                <div className="foot-container-blogs">
-                    <Footer />
                 </div>
             </div>
+
+            <div className="foot-container-blogs">
+                <Footer />
+            </div>
+
         </div>
     );
 }

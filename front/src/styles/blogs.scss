@@ -1,4 +1,4 @@
-// * {
+//* {
     //outline: 1px solid red; /* Muestra los bordes de todos los elementos */
 //}
 
@@ -8,7 +8,8 @@ $base-yellow: #FFC72C;
 
 .blogs-father-container{
     display: flex;
-    height: 100vh;
+    height: 70vh;
+    overflow-y: auto; // cuando los blogs pasen de 70vh ponemos barra de scroll
     flex-direction: column;
     margin-left: 4%;
     margin-top: 2%;
@@ -71,10 +72,56 @@ $base-yellow: #FFC72C;
                 color: $base-yellow;
             }
         }
+
+        .blog-button{
+            position: relative;
+            width: 40px; /* Tamaño inicial */
+            height: 40px;
+            background-color: $base-yellow;
+            color: white;
+            border: none;
+            border-radius: 50%; /* Hace que el botón sea circular */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            overflow: hidden;
+            transition: width 0.3s ease-in-out, border-radius 0.3s ease-in-out;
+
+            &:hover{
+                width: 140px; /* Se expande horizontalmente */
+                border-radius: 30px; /* Hace que los bordes sean más suaves */
+
+                &:hover .plus-icon{
+                    transform: rotate(90deg);
+                    left: 20px;
+                }
+
+                &:hover .button-text{
+                    opacity: 1;
+                    left: 50px;
+                }
+            }
+
+            .plus-icon {
+                position: absolute;
+                transition: transform 0.3s ease-in-out, left 0.3s ease-in-out;
+            }
+        }
+
+        .button-text {
+            position: absolute;
+            opacity: 0;
+            white-space: nowrap;
+            font-size: 13px;
+            transition: opacity 0.3s ease-in-out;
+        }
     }
 }
 
 .foot-container-blogs{
-    position: absolute;
-    bottom: 1vh;
+    display: flex;
+    justify-content: center;
 }

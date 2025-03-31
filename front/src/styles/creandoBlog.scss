@@ -1,0 +1,95 @@
+// estilos para la pantalla de crear blog
+
+//* {
+  //  outline: 1px solid red; /* Muestra los bordes de todos los elementos */
+//}
+
+// variables
+
+$base-yellow: #FFC72C;
+
+.blog-crear-container{
+    display: flex;
+    height: 70vh;
+    overflow-y: auto;
+    flex-direction: column;
+    margin-top: 2%;
+    align-items: center;
+
+    .title-container-crear{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .add-icon{
+            color: $base-yellow;    
+            height: 35px;
+            width: 35px;
+        }
+    }
+
+    .form-father{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        gap: 30px;
+        background: white;
+        border-radius: 12px;
+        height: auto;
+        padding: 20px;
+
+
+        textarea{
+            width: 80%;
+            font-size: 1rem;
+            text-align: center;
+            font-family: "Roboto", sans-serif;  
+            resize: none; /* Desactiva la opción de redimensionar */
+        }
+
+        #title{
+            height: 30px;
+            border-radius: 10px;
+            outline: none;
+            border: none;
+            border-top: 1px solid $base-yellow;
+        }
+
+        #content{
+            min-height: 180px; /* Altura mínima */
+            max-height: 300px; /* Altura máxima */
+            outline: none;
+            border: none;
+            border-left: 1px solid $base-yellow;
+            border-right: 1px solid $base-yellow;
+        }
+
+        #autor-input{
+            width: 80%;
+            border-radius: 5px;
+            text-align: center;
+            border: none;
+            border-bottom: 1px solid $base-yellow;
+            outline: none;
+        }
+
+        .crear-button{
+            border: none;
+            background: none;
+            cursor: pointer;
+
+            .check-icon-crear{
+                color: $base-yellow;
+                height: 35px;
+                width: 35px;
+                transition: transform 0.3s ease; //
+
+                &:hover{
+                    transform: rotate(360deg);   
+                }
+            }
+        }
+    }
+
+}
