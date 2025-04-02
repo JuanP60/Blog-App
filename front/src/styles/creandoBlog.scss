@@ -19,7 +19,7 @@ $base-yellow: #FFC72C;
     .title-container-crear{
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 10px;
 
         .add-icon{
             color: $base-yellow;    
@@ -54,6 +54,7 @@ $base-yellow: #FFC72C;
             outline: none;
             border: none;
             border-top: 1px solid $base-yellow;
+            padding-top: 10px;
         }
 
         #content{
@@ -63,6 +64,8 @@ $base-yellow: #FFC72C;
             border: none;
             border-left: 1px solid $base-yellow;
             border-right: 1px solid $base-yellow;
+            padding-left: 10px;
+            padding-right: 10px;
         }
 
         #autor-input{
@@ -72,6 +75,7 @@ $base-yellow: #FFC72C;
             border: none;
             border-bottom: 1px solid $base-yellow;
             outline: none;
+            padding-bottom: 10px;
         }
 
         .crear-button{

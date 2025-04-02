@@ -3,6 +3,9 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import "../styles/blogContent.scss";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 function BlogContent(){
 
@@ -62,11 +65,24 @@ function BlogContent(){
     return (
         <div>
             <NavBar />
-            <h1>{blogContent.title}</h1>
-            <p>{blogContent.blog}</p>
-            <button onClick={editarBlog}>Editar blog</button>
-            <button onClick={eliminarBlog}>Eliminar Blog</button>
-            <Footer />
+
+            <div className="blog-crear-container">
+                <div className="form-father">
+                    <h1>{blogContent.title}</h1>
+                    <p>{blogContent.blog}</p>
+
+                    <div className="buttons-container">
+                        <button className="edit-button" onClick={editarBlog}><EditIcon className="edit-icon"/></button>
+                        <button className="delete-button" onClick={eliminarBlog}><DeleteIcon className="delete-icon" /></button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div className="foot-container-blogs">
+                <Footer />
+            </div>
+         
         </div>
     );
 }

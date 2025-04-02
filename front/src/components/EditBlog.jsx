@@ -3,6 +3,10 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import "../styles/editBlog.scss";
 
 function EditBlog(){
 
@@ -97,16 +101,36 @@ function EditBlog(){
     }, []); 
 
     return (
-        <form>
-            <NavBar />  
-            <h1>Editando {currentBlog.title}</h1>
-            <textarea name="title" id="" value={currentBlog.title} onChange={handleChange}></textarea>
-            <textarea name="blog" id="" value={currentBlog.blog} onChange={handleChange}></textarea>
-            <p>Autor: {currentBlog.created_by}</p>
-            <button onClick={editingBlog}>Editar</button>
-            <button onClick={eliminarBlog}>Eliminar Blog</button>
-            <Footer />
-        </form> 
+
+        <div>
+
+            <NavBar /> 
+
+            <div className="blog-crear-container">
+
+                <div className="title-container-crear">
+                    <h1>Editando {currentBlog.title}</h1>
+                    <EditNoteIcon className="add-icon" />
+                </div>
+
+                <form className="form-father">
+                
+                    <textarea name="title" id="title" value={currentBlog.title} onChange={handleChange}></textarea>
+                    <textarea name="blog" id="content" value={currentBlog.blog} onChange={handleChange}></textarea>
+                    <p className="autor-text">Autor: {currentBlog.created_by}</p>
+
+                    <div className="buttons-container">
+                        <button className="edit-button" onClick={editingBlog}><EditIcon className="edit-icon"/></button>
+                        <button className="delete-button" onClick={eliminarBlog}><DeleteIcon className="delete-icon" /></button>
+                    </div>
+
+                </form> 
+            </div>
+
+             <div className="foot-container-blogs">
+                <Footer />
+             </div>
+        </div>
     );
 }
 
