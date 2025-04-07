@@ -67,9 +67,12 @@ function BlogContent(){
             <NavBar />
 
             <div className="blog-crear-container">
-                <div className="form-father">
-                    <h1>{blogContent.title}</h1>
+                <div className="content-father">
+                    <h1 className="title-blog-content">{blogContent.title}</h1>
+                    <hr className="horizontal-rule-content"/>
+
                     <p>{blogContent.blog}</p>
+                    <hr className="horizontal-rule-content"/>
 
                     <div className="buttons-container">
                         <button className="edit-button" onClick={editarBlog}><EditIcon className="edit-icon"/></button>

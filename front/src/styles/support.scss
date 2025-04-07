@@ -1,0 +1,73 @@
+// variables
+
+$base-yellow: #FFC72C;
+
+.support-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    height: 70vh;
+    
+    .support-box-flex{
+        display: flex;
+        flex-direction: column;
+        height: 400px;
+        width: 50%;
+        text-align: center;
+        align-items: center;
+        gap: 15px;
+        border-radius: 20px;
+        padding: 10px;
+        background: white;
+    }
+
+    .title-support{
+        font-family: "Roboto", sans-serif;
+        font-size: 24px;
+    }
+
+    .support-line{
+        width: 70%;
+        border: 1px solid $base-yellow;
+    }
+
+    .text-support{
+        width: 60%;
+        height: 200px;
+        resize: none;
+        font-family: "Roboto", sans-serif; 
+        padding: 10px;
+        border: none;
+        outline: none;
+        text-align: center;
+    }
+
+    .btn-support{
+        border-radius: 20px;
+        outline: none;
+        border: 1px solid $base-yellow;
+        width: 70px;
+        height: 70px;
+        cursor: pointer;
+        background-color: $base-yellow;
+        color: white;
+        transition: background-color 0.3s ease;
+
+        &:hover{
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    }
+
+    .redes{
+
+        display: flex;
+        gap: 10px;
+
+        .redes-icons{
+            cursor: pointer;
+        }
+    }
+}

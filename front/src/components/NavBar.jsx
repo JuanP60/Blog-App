@@ -23,6 +23,10 @@ function NavBar(){
         navigate("/blogs");
     }
 
+    function supportRoute(){
+        navigate("/support");
+    }
+
     return (
         <div>
             <nav className="nav-container">
@@ -34,7 +38,7 @@ function NavBar(){
                 <ul className="items-container">
                     <li><Link to="/blogs">Blogs comunidad</Link></li>
                     <li><Link to="/myBlogs">Mis blogs</Link></li>
-                    <li><Link>Soporte</Link></li>
+                    <li><Link to="/support">Soporte</Link></li>
                 </ul>
 
                 <div onClick={mostrarSignOut} className="sign-container">

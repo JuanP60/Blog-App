@@ -1,4 +1,5 @@
 // estilos para la pantalla de crear blog
+// fuente para titulos::after
 
 //* {
   //  outline: 1px solid red; /* Muestra los bordes de todos los elementos */
@@ -55,6 +56,7 @@ $base-yellow: #FFC72C;
             border: none;
             border-top: 1px solid $base-yellow;
             padding-top: 10px;
+            font-family: 'Playfair Display', serif !important;
         }
 
         #content{

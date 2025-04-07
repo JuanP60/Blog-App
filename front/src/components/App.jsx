@@ -7,6 +7,7 @@ import Myblog from "./Myblog";
 import BlogContent from "./BlogContent";
 import EditBlog from "./EditBlog";
 import Restricted from "./RestrictedRoute";
+import Support from "./Support";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // lo que esta en future solo se puso para que no salieran los warnings en el navegador sobre las futuras versiones de react-router
@@ -23,6 +24,7 @@ function App(){
                     <Route path="/crearBlog" element={<CrearBlog />} />
                     <Route path="/myBlogs" element={<Myblog />}/>
                     <Route path="/editBlog/:id" element={<EditBlog />}/>
+                    <Route path="/support" element={<Support />} />
                 </Route>
             </Routes>
         </BrowserRouter>

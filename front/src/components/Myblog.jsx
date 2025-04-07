@@ -5,10 +5,12 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import BookIcon from '@mui/icons-material/Book';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Myblog(){
 
     const [blogs, setBlogs] = React.useState([]); // estado para almacenar info del los blogs
+    const [loading, setLoading] = React.useState(true);
     const navigate = useNavigate();
 
     async function showBlogs() {
@@ -21,8 +23,16 @@ function Myblog(){
             });
 
             setBlogs(response.data.blogs);
+
+            // esperamos 1s antes de quitar el loader
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+
         } catch (error) {
             console.log("Error cargando el blog", error);
+            setLoading(false);
         }   
     }
 
@@ -47,13 +57,21 @@ function Myblog(){
 
                 <div className="blogs-container">
                     <ul className="items-blogs-container">
-                        {blogs.length > 0 ? (
+
+                        {loading ? (
+
+                            <div className="spinner-container">
+                                <ClipLoader color="#ffc107" size={50} />
+                                <p>Cargando blogs...</p>
+                            </div>
+                        ) : blogs.length > 0 ? (
                             blogs.map((t, index) => (
                                 <Link className="blogs-items-design" key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li> <VisibilityIcon className="eye-icon"/> </Link>
                         )) 
                         ) : (
                             <li>No tienes blogs por el momento</li>
                         )}
+
                     </ul>
 
                     <button  className="blog-button" onClick={creaTuBlogPage}>

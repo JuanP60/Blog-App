@@ -1,6 +1,32 @@
+// estilo titulo:
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
 // variables
 
 $base-yellow: #FFC72C;
+
+.content-father{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    gap: 30px;
+    background: white;
+    border-radius: 12px;
+    height: auto;
+    padding: 20px;
+    border: 1px solid $base-yellow;
+
+    .title-blog-content{
+        font-family: 'Playfair Display', serif !important;
+    }
+
+    .horizontal-rule-content{
+        width: 70%;
+        border: 1px solid $base-yellow; 
+    }
+}
 
 .buttons-container{
     display: flex;
