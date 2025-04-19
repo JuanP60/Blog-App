@@ -7,12 +7,50 @@ import "../styles/blogs.scss";
 import BookIcon from '@mui/icons-material/Book';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ClipLoader from "react-spinners/ClipLoader";
+import DrawIcon from '@mui/icons-material/Draw'; // lapiz
+import MenuIcon from '@mui/icons-material/Menu'; // ícono hamburguesa
+import CloseIcon from '@mui/icons-material/Close'; // cerrar icono
+
+function NavMovil(){ 
+    const [menuOpen, setMenuOpen] = React.useState(false);
+
+    // manejo la logica de si aparece o no el menu desde scss con media queries.
+    // este hook es solo para manejar el pop-up que aparece al clickear en el icono hamburguesa
+
+    return (
+        <>
+            <div className="nav-container1">
+                
+                <div className="title-nav-mov">
+                    <h1>MyBlog! <DrawIcon className="pencil-icon" /></h1>
+                </div>
+
+                <div className="burger-icon" onClick={() => setMenuOpen(!menuOpen)}>
+                {menuOpen ? <CloseIcon className="close-burguer"/> : <MenuIcon className="menu-burguer"/>}
+                </div>
+
+                </div>
+
+                {menuOpen && (
+                <div className="mobile-menu">
+                    <ul>
+                        <li><Link to="/blogs">Blogs comunidad</Link></li>
+                        <li><Link to="/myBlogs">Mis blogs</Link></li>
+                        <li><Link to="/support">Soporte</Link></li>
+                    </ul>
+            </div>
+        )}
+        </>
+    );
+}
+
+// componente principal:
 
 function Blogs(){
 
     const [blogs, updateBlogs] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
-
+    
     async function llamarBlogs(){
         // hacemos solicitud get con axios para mostrar todos los blogs de todos los usuarios
         try {
@@ -38,10 +76,14 @@ function Blogs(){
     }, []);
 
     return (
-        <div>
+        <div className="blogs-father">
 
-            <NavBar />
+            <NavMovil />
 
+            <div className="desk-nav">
+                <NavBar/>
+            </div>
+            
             <div className="blogs-father-container">
 
                 <div className="title-container">
@@ -74,8 +116,8 @@ function Blogs(){
                 <Footer />
             </div>
 
-        </div>
+        </div>  
     );
 }
 
-export default Blogs;
+export {Blogs, NavMovil};

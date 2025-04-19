@@ -5,6 +5,7 @@ import "../styles/support.scss";
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import {NavMovil} from "./Blogs";
 
 function Support(){
 
@@ -22,8 +23,13 @@ function Support(){
     }
 
     return (
-        <div>
-            <NavBar />
+        <>
+            
+            <NavMovil />
+
+            <div className="desk-nav">
+                <NavBar/>
+            </div>
 
             <div className="support-box">
                 <div className="support-box-flex">
@@ -54,7 +60,7 @@ function Support(){
             <div className="foot-container-blogs">
                 <Footer />
             </div>
-        </div>
+        </>
     );
 }
 

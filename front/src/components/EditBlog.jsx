@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import "../styles/editBlog.scss";
+import {NavMovil} from "./Blogs";
 
 function EditBlog(){
 
@@ -104,7 +105,11 @@ function EditBlog(){
 
         <div>
 
-            <NavBar /> 
+            <NavMovil />
+
+            <div className="desk-nav">
+                <NavBar/>
+            </div>
 
             <div className="blog-crear-container">
 

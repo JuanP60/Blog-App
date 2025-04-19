@@ -10,9 +10,10 @@ html{
     font-family: "Roboto", sans-serif;
 }
 
-// ************ ESTILOS NAVBAR ************
+// ************ ESTILOS NAVBAR MOVIL************
 
 .nav-container1{
+    display: flex;
     align-items: center;
     gap: 0.5rem;
     position: absolute;
@@ -25,11 +26,9 @@ html{
         color: #222222;
     }
 
-    .pencil-icon{
-        position: absolute;
+    .pencil-icon{   
         height: 30px;
         width: 30px;
-        margin-left: 0.8vh;
         top: 3.5vh;
         color: $base-yellow;
     }
@@ -40,7 +39,9 @@ html{
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
     flex-direction: column;
-    height: 100vh; /* Ocupa toda la pantalla */
+    gap: 20px;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 // ************ ESTILOS FORM - MIDCONTAINER ************
@@ -61,7 +62,7 @@ html{
         flex-direction: column;
         gap: 15px;
         padding: 20px;
-        margin-top: -4vh; // moviendo form un poco arriba
+   
     
         .logo-container{
             display: flex;
@@ -151,6 +152,12 @@ html{
 
 // celurares pequeños:
 @media screen and (max-width: 480px){ 
+
+    ::-webkit-scrollbar {
+        display: none;
+      }
+
+
     .mid-container {
         width: 90%;  
         max-width: 400px; 
@@ -170,7 +177,7 @@ html{
       }
     
       .input-login {
-        width: 100%; /* O puedes probar con 90% para que no quede pegado a los bordes */
+        width: 90%; 
         max-width: 350px;
       }
     
@@ -193,4 +200,60 @@ html{
     }
 }
 
-// falta responsive para tablets: 768px, escritorios: 1024px
+// tablets:
+
+@media screen and (max-width: 768px){
+
+    .nav-container1{
+        display: flex;
+        align-items: center;
+        position: sticky !important;
+        top: 0;
+        z-index: 100;
+    }
+
+    .mid-container{
+        width: 90%;
+        max-width: 500px;
+        height: auto;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+// escritorios:
+
+@media screen and (max-width: 1024px){
+
+    .nav-container1{
+        display: flex;
+        align-items: center;
+        position: sticky !important;
+        top: 0;
+        margin-left: 10vw;
+        z-index: 100;
+    }   
+
+    .mid-container{
+        width: 90%;
+        max-width: 600px;
+        height: auto;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+// pantallas grandes > 1024px
+
+@media screen and (min-width: 1025px){
+    .mid-container{
+        width: 90%;
+        max-width: 650px;
+        height: auto;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+    }
+}

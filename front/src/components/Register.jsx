@@ -52,7 +52,7 @@ function Register(){
     return (
         <div className="father-container">
 
-            <div className="nav-container1">
+            <div className="nav-container2">
                 <h1>MyBlog! <DrawIcon className="pencil-icon"/></h1>
             </div>
 

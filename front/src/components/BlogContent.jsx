@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import "../styles/blogContent.scss";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import {NavMovil} from "./Blogs";
 
 function BlogContent(){
 
@@ -64,7 +65,12 @@ function BlogContent(){
 
     return (
         <div>
-            <NavBar />
+            
+            <NavMovil />
+
+            <div className="desk-nav">
+                <NavBar/>
+            </div>
 
             <div className="blog-crear-container">
                 <div className="content-father">

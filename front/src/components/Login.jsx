@@ -57,37 +57,40 @@ function Login(){
     }
 
     return (
-        <div className="father-container">
-            <div className="nav-container1">
+        <>  
+    
+            <div className="nav-container2">
                 <h1>MyBlog! <DrawIcon className="pencil-icon"/></h1>
             </div>
 
-            <div className="mid-container">
-                <form className="login-form">
-                    <div className="logo-container">
-                        <AccountCircleIcon className="login-icon"/>
+            <div className="father-container">
+                <div className="mid-container">
+                    <form className="login-form">
+                        <div className="logo-container">
+                            <AccountCircleIcon className="login-icon"/>
+                        </div>
+                        <h1 className="login-header">Inicio de sesión</h1>
+                        <input className="input-login" onChange={(event) => setEmail(event.target.value)} type="email" name="email" placeholder="Correo" required/>
+                        <input className="input-login" onChange={(event) => setPass(event.target.value)} type="password" name="password" placeholder="Contraseña" required/>
+                        <button className="btn-login1" onClick={reqLogin} type="submit">Inciar sesión</button>
+                        <button className="btn-login2" onClick={crearCuenta} type="submit">Crear una cuenta</button>
+                    </form>
+                    <div className="div-container"></div>
+                    <div className="items-container">
+                        <ul>
+                            <li> <CheckIcon className="check-login"/> Crea tus blogs!</li>
+                            <li> <CheckIcon className="check-login"/> Editalos!</li>
+                            <li> <CheckIcon className="check-login"/> Compartelos!</li>
+                        </ul>
                     </div>
-                    <h1 className="login-header">Inicio de sesión</h1>
-                    <input className="input-login" onChange={(event) => setEmail(event.target.value)} type="email" name="email" placeholder="Correo" required/>
-                    <input className="input-login" onChange={(event) => setPass(event.target.value)} type="password" name="password" placeholder="Contraseña" required/>
-                    <button className="btn-login1" onClick={reqLogin} type="submit">Inciar sesión</button>
-                    <button className="btn-login2" onClick={crearCuenta} type="submit">Crear una cuenta</button>
-                </form>
-                <div className="div-container"></div>
-                <div className="items-container">
-                    <ul>
-                        <li> <CheckIcon className="check-login"/> Crea tus blogs!</li>
-                        <li> <CheckIcon className="check-login"/> Editalos!</li>
-                        <li> <CheckIcon className="check-login"/> Compartelos!</li>
-                    </ul>
+                </div>
+                
+                <p className="login-error">{error}</p>
+                <div className="foot-container">
+                    <Footer />
                 </div>
             </div>
-            
-            <p className="login-error">{error}</p>
-            <div className="foot-container">
-                <Footer />
-            </div>
-        </div>
+        </>
     )
 }
 

@@ -71,3 +71,21 @@ $base-yellow: #FFC72C;
         }
     }
 }
+
+// responsive
+
+@media screen and (max-width: 768px){
+    .support-box{
+        display: flex;
+    }
+
+    .support-box-flex{
+        width: 100%;
+    }
+
+    .text-support{
+        width: 100%;
+    }
+}
+
+// responsive para moviles

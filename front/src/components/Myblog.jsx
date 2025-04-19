@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import BookIcon from '@mui/icons-material/Book';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ClipLoader from "react-spinners/ClipLoader";
+import {NavMovil} from "./Blogs";
 
 function Myblog(){
 
@@ -46,7 +47,12 @@ function Myblog(){
 
     return (
         <div>
-            <NavBar />
+
+            <NavMovil />
+
+            <div className="desk-nav">
+                <NavBar/>
+            </div>
 
             <div className="blogs-father-container">
 
