@@ -8,21 +8,33 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import "../styles/editBlog.scss";
 import {NavMovil} from "./Blogs";
+import ClipLoader from "react-spinners/ClipLoader"; // logo loading
 
 function EditBlog(){
 
     const [currentBlog, setCurrentBlog] = React.useState({});
+    const [loading, setLoading] = React.useState(true); // estado para el loader
+
     // console.log(currentBlog);   // en current blog ya se esta guardando el objeto que viene desde el backend con la consulta: blog, blog_id, created_by, title
     const {id} = useParams(); // accediendo al id del blog pasado desde la URL.
     const navigate = useNavigate();
 
     // consulta para traer current data del blog.
+
     async function showCurrentBlog(){
         try {
             const response = await axios.get(`http://localhost:4000/api/getBlogContent/${id}`);
             setCurrentBlog(response.data); // asignamos valores del blog que esta siendo editado
+
+            // esperamos 1s antes de quitar el loader
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+
         } catch (error) {
             console.log(error);
+            setLoading(false); // por si hay error y no se trae el blog correctamente
         }
     }
 
@@ -111,26 +123,35 @@ function EditBlog(){
                 <NavBar/>
             </div>
 
-            <div className="blog-crear-container">
-
-                <div className="title-container-crear">
-                    <h1>Editando {currentBlog.title}</h1>
-                    <EditNoteIcon className="add-icon" />
+            {loading ? (
+                 <div className="spinner-container">
+                    <ClipLoader color="#ffc107" size={50} />
+                    <p>Cargando blog...</p>
                 </div>
+            ) : (
 
-                <form className="form-father">
-                
-                    <textarea name="title" id="title" value={currentBlog.title} onChange={handleChange}></textarea>
-                    <textarea name="blog" id="content" value={currentBlog.blog} onChange={handleChange}></textarea>
-                    <p className="autor-text">Autor: {currentBlog.created_by}</p>
+                <div className="blog-crear-container">
 
-                    <div className="buttons-container">
-                        <button className="edit-button" onClick={editingBlog}><EditIcon className="edit-icon"/></button>
-                        <button className="delete-button" onClick={eliminarBlog}><DeleteIcon className="delete-icon" /></button>
+                    <div className="title-container-crear">
+                        <h1>Editando {currentBlog.title}</h1>
+                        <EditNoteIcon className="add-icon" />
                     </div>
 
-                </form> 
-            </div>
+                    <form className="form-father">
+                    
+                        <textarea name="title" id="title" value={currentBlog.title} onChange={handleChange}></textarea>
+                        <textarea name="blog" id="content" value={currentBlog.blog} onChange={handleChange}></textarea>
+                        <p className="autor-text">Autor: {currentBlog.created_by}</p>
+
+                        <div className="buttons-container">
+                            <button className="edit-button" onClick={editingBlog}><EditIcon className="edit-icon"/></button>
+                            <button className="delete-button" onClick={eliminarBlog}><DeleteIcon className="delete-icon" /></button>
+                        </div>
+
+                    </form> 
+
+                </div>
+            )}
 
              <div className="foot-container-blogs">
                 <Footer />

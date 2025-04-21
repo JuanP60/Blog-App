@@ -99,3 +99,18 @@ $base-yellow: #FFC72C;
     }
 
 }
+
+// responsive:
+
+@media screen and (max-width: 768px) {
+    .title-container-crear{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+    }
+
+    .form-father{
+        width: 80% !important;
+    }
+}

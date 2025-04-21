@@ -1,5 +1,5 @@
 //* {
-   // outline: 1px solid red; /* Muestra los bordes de todos los elementos */
+  //  outline: 1px solid red; /* Muestra los bordes de todos los elementos */
 //}
 
 // para evitar que en movil se colapse el diseño:
@@ -65,6 +65,7 @@ $base-yellow: #FFC72C;
             gap: 15px;
             width: 50%;
             justify-content: space-between;
+            padding-left: 0px; // antes era 40px
         }
 
         .items-blogs-container a{
@@ -174,6 +175,54 @@ $base-yellow: #FFC72C;
         margin: 0;
     }
 
+    // ****************************************************************************************************
+    // estilos nav mobile
+
+    @keyframes slideInFromRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+    .mobile-menu{
+        display: flex;  
+        justify-content: end;
+        z-index: 999;
+        position: fixed; // para sacarlos del flujo y que no empuje el content cuando salga en el layout
+        background: white;
+        right: 0;
+        top: 10%;
+        animation: slideInFromRight 0.3s ease-out;
+    }
+
+    .mobile-menu li{
+        list-style: none;
+        text-align: center;
+        padding: 8px;
+    }
+
+    .mobile-menu li a{
+        outline: none;
+        border-bottom: 1px solid $base-yellow; // agregando line a amarilla delgada debajo de cada link
+        text-decoration: none; // quitando linea azul
+        color: black;
+    }
+
+    .mobile-items{
+        border-top: 1px solid $base-yellow;
+        border-bottom: 1px solid $base-yellow;
+        border-left: 1px solid $base-yellow;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    // ****************************************************************************************************
+
     .title-nav-mov{
         display: flex;
         flex-direction: row;  
@@ -210,6 +259,10 @@ $base-yellow: #FFC72C;
     .blogs-container{
         display: flex;
         flex-direction: column;      
+    }
+
+    .items-blogs-container{ // anncho de items en moviles
+        width: 70% !important;
     }
 
     // desaperecer menu de moviles cuando pantalla sea mayor que 768px

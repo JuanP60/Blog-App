@@ -65,3 +65,11 @@ $base-yellow: #FFC72C;
         color: #E63946;
     }
 }
+
+// responsive
+
+@media screen and (max-width: 768px) {
+    .content-father{
+        width: 80% !important;
+    }
+}

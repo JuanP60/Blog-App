@@ -2,6 +2,13 @@
 
 $base-yellow: #FFC72C;
 
+.spinner-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .autor-text{
     border-bottom: 1px solid $base-yellow;
     width: 80%;
@@ -9,3 +16,6 @@ $base-yellow: #FFC72C;
     text-align: center;
     padding-bottom: 10px;
 }
+
+
+// para el responsive se maneja con form-father, el cual ya se configuro en creandoBlog.scss

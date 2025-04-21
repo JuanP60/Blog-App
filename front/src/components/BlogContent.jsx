@@ -6,12 +6,15 @@ import Footer from "./Footer";
 import "../styles/blogContent.scss";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import {NavMovil} from "./Blogs";
+import {NavMovil} from "./Blogs"; // nav para moviles
+import ClipLoader from "react-spinners/ClipLoader"; // logo loading
 
 function BlogContent(){
 
     const {id} = useParams(); // accedemos al id que se paso desde la URL desde el componente de Blogs.jsx
     const [blogContent, setBlog] = React.useState(""); // estado para almacenar info del blog
+    const [loading, setLoading] = React.useState(true); // estado para el loader
+
     const navigate = useNavigate();
 
     async function showBlogContent() {
@@ -19,8 +22,16 @@ function BlogContent(){
         try {
             const response = await axios.get(`http://localhost:4000/api/getBlogContent/${id}`); // hacemos solicitud al back para traer la info de este blog al front
             setBlog(response.data); // datos del blog ya guardados en blogContent
+
+            // esperamos 1s antes de quitar el loader
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+
         } catch (error) {
             console.log("Error cargando el blog", error);
+            setLoading(false); // por si hay error y no se trae el blog correctamente
         }   
     }
 
@@ -72,21 +83,28 @@ function BlogContent(){
                 <NavBar/>
             </div>
 
-            <div className="blog-crear-container">
-                <div className="content-father">
-                    <h1 className="title-blog-content">{blogContent.title}</h1>
-                    <hr className="horizontal-rule-content"/>
-
-                    <p>{blogContent.blog}</p>
-                    <hr className="horizontal-rule-content"/>
-
-                    <div className="buttons-container">
-                        <button className="edit-button" onClick={editarBlog}><EditIcon className="edit-icon"/></button>
-                        <button className="delete-button" onClick={eliminarBlog}><DeleteIcon className="delete-icon" /></button>
-                    </div>
-
+            {loading ? (
+                <div className="spinner-container">
+                    <ClipLoader color="#ffc107" size={50} />
+                    <p>Cargando blog...</p>
                 </div>
-            </div>
+            ) : (
+                <div className="blog-crear-container">
+                    <div className="content-father">
+                        <h1 className="title-blog-content">{blogContent.title}</h1>
+                        <hr className="horizontal-rule-content"/>
+
+                        <p>{blogContent.blog}</p>
+                        <hr className="horizontal-rule-content"/>
+
+                        <div className="buttons-container">
+                            <button className="edit-button" onClick={editarBlog}><EditIcon className="edit-icon"/></button>
+                            <button className="delete-button" onClick={eliminarBlog}><DeleteIcon className="delete-icon" /></button>
+                        </div>
+
+                    </div>
+                </div>
+            )}
 
             <div className="foot-container-blogs">
                 <Footer />

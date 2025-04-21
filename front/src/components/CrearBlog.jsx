@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import "../styles/creandoBlog.scss";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import {NavMovil} from "./Blogs";
 
 function CrearBlog(){
 
@@ -51,7 +52,11 @@ function CrearBlog(){
     return (
         <div>
 
-            <NavBar />
+            <NavMovil />
+
+            <div className="desk-nav">
+                <NavBar/>
+            </div>
 
             <div className="blog-crear-container">
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
@@ -12,20 +12,30 @@ import MenuIcon from '@mui/icons-material/Menu'; // ícono hamburguesa
 import CloseIcon from '@mui/icons-material/Close'; // cerrar icono
 
 function NavMovil(){ 
-    const [menuOpen, setMenuOpen] = React.useState(false);
+    const [menuOpen, setMenuOpen] = React.useState(false); // para manejar el estado de abierto o cerrado del menu movil
+    const navigate = useNavigate();
 
     // manejo la logica de si aparece o no el menu desde scss con media queries.
-    // este hook es solo para manejar el pop-up que aparece al clickear en el icono hamburguesa
+    // esto se podria manejar como un componente aparte.
+
+    function homeBlogs(){
+        navigate("/blogs");
+    }
+
+    function cerrarSesion(){
+        navigate("/");
+        localStorage.clear(); // borramos el estado de isAuth.
+    }
 
     return (
         <>
             <div className="nav-container1">
                 
                 <div className="title-nav-mov">
-                    <h1>MyBlog! <DrawIcon className="pencil-icon" /></h1>
+                    <h1 onClick={homeBlogs}>MyBlog! <DrawIcon className="pencil-icon" /></h1>
                 </div>
 
-                <div className="burger-icon" onClick={() => setMenuOpen(!menuOpen)}>
+                <div className="burger-icon" onClick={() => setMenuOpen(!menuOpen)}> 
                 {menuOpen ? <CloseIcon className="close-burguer"/> : <MenuIcon className="menu-burguer"/>}
                 </div>
 
@@ -33,10 +43,11 @@ function NavMovil(){
 
                 {menuOpen && (
                 <div className="mobile-menu">
-                    <ul>
+                    <ul className="mobile-items">
                         <li><Link to="/blogs">Blogs comunidad</Link></li>
                         <li><Link to="/myBlogs">Mis blogs</Link></li>
                         <li><Link to="/support">Soporte</Link></li>
+                        <li onClick={cerrarSesion}><Link>Cerrar sesión</Link></li>
                     </ul>
             </div>
         )}
@@ -101,7 +112,7 @@ function Blogs(){
                             </div>
                         ) : blogs.length > 0 ? ( // con ( ) la arrow devuelve automaticamente el valor sin necesidadd de usar return
                             blogs.map((t, index) =>(
-                                <Link className="blogs-items-design" key={index} to={`/blogContent/${t.blog_id}`}><li>{t.title}</li>  <VisibilityIcon className="eye-icon"/> </Link>
+                                <Link className="blogs-items-design" key={index} to={`/blogContent/${t.blog_id}`}><span>{t.title}</span>  <VisibilityIcon className="eye-icon"/> </Link>
                             )) 
                         ): (
                             <li>No hay blogs disponibles</li>
